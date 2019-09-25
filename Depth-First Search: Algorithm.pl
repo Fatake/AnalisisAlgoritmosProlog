@@ -1,14 +1,16 @@
-% Autor:
+% Autor: Fatake
 % Fecha: 17/09/2019
+
 % [[1,2,3,4],[5,6,7,8],[3,1,0,11,12],[13,10,14,15]]
 vert([[_,Y]|Res],[_,Y]).
 vert([_|Res],Pos):-vert(Res,Pos).
+
 for(_,[_,9],[]).
 for(Reynas,[_,Y],[1|Resto]):-vert(Reynas,[_,Y]),Yn is Y+1,
                              for(Reynas,[_,Yn],Resto).
 for(Reynas,[_,Y],[0|Resto]):-Yn is Y+1,for(Reynas,[_,Yn],Resto),
 
-
+imprime([]).
 imprime([P|Resto]):-writeln(P),imprime(Resto).
 goal([],_).
 goal([R1|Res1],[R2|Res2]):-igual(R1,R2),goal(Res1,Res2).
