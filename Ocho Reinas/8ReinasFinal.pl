@@ -52,11 +52,6 @@ pon1Columna(Matriz,[X,_],MatrizNueva):-aux(Matriz,[X,1],Mn), MatrizNueva is Mn.
 posicion(0, []).
 posicion(X, [X | YS]) :- X >= 0, Y is X - 1, posicion(Y, YS).
 
-select([X | XS], X, XS).
-select([C | XS], X, [C | YS]) :- select(XS, X, YS).
-
-permuta([], []).
-permuta(XS, [Y | YS]) :- select(XS, Y, XSS), permuta(XSS, YS).
 
 len([], 0).
 len([_ | XS], Y) :- len(XS, L), Y is L + 1.
@@ -75,8 +70,10 @@ noChocan([C | XS], R) :-
 
 noChocan(L) :- noChocan(L, 1).
 
-reinasJuego(L) :- 
-    len(L, Len), 
-    posicion(Len, LS), 
-    permuta(LS, L), 
-    noChocan(L).
+reinasJuego(L,Lsol) :- 
+    len(L, Len),
+    listaReynas(Lr),
+    posicion(Len, Lr),
+    noChocan(Lr,Lsol),
+    
+    
