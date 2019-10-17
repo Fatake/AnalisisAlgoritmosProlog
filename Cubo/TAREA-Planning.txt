@@ -1,0 +1,18 @@
+Tarea a)
+- Agregar al programa de los cubos "El Brazo"
+- Agregar al menos dos acciones ("Coger" un cubo/"Soltar" un cubo)
+- Si agregan mas acciones de las antes mencionadas obtendran
+      "dos puntos" para el 2do. examen
+
+Tarea b)
+- Modifique el programa de los cubos agregando mas cubos (al menos 8)
+- Pruebe el programa con dos configuraciones diferentes (ini/goal)
+
+Entregables:
+a) - Archivos del nuevo programa de los cubos 
+    - Captura de pantalla que muestre la ejecucion del nuevo programa 
+    - Si agregaron mas de dos acciones, deberan enviar otro conjunto de 
+       archivos de los cubos que contengan todas las acciones agregadas
+b) - Conjunto de programas que manejen mas cubos
+     - Captura de pantalla que muestre la ejecucion del programa con 
+       mas cubos 

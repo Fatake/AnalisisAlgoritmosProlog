@@ -1,0 +1,12 @@
+fluents: sobre(B,L) requires cubo(B), lugardisponible(L).
+         ocupado(B) requires lugardisponible(B).
+
+actions: mover(B,L) requires cubo(B), lugardisponible(L).
+
+always:  executable mover(B,L) if not ocupado(B), not ocupado(L), B <> L.
+         inertial sobre(B,L).
+         caused ocupado(B) if sobre(B1,B), cubo(B).
+         caused sobre(B,L) after mover(B,L).
+         caused -sobre(B,L1) after mover(B,L), sobre(B,L1), L <> L1.
+
+noConcurrency.

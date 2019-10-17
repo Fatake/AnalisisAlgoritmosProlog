@@ -1,0 +1,7 @@
+lugardisponible(mesa) :- true. true.
+lugardisponible(B) :- cubo(B).
+
+cubo(a). cubo(b). cubo(c).
+
+% cubo(d). cubo(e). cubo(f). cubo(g). cubo(h).
+
