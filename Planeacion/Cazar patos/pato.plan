@@ -1,0 +1,12 @@
+fluents: alive, loaded.
+actions: load, shoot.
+always: executable shoot if loaded.
+    executable load if not loaded.
+    caused -alive after shoot.
+    caused -loaded after shoot.
+    caused loaded after load.
+
+initialy: loaded.
+    alive.
+
+goal: -alive? (1).
