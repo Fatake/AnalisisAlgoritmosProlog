@@ -1,0 +1,7 @@
+Initially:
+    ono(a,2).
+    onl(b,2).
+    onr(c,2).
+
+Goal:
+    ono(a,1),onl(b,1),onr(c,1) ? (6)

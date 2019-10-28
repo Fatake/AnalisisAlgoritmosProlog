@@ -1,0 +1,20 @@
+fluents:
+    onl(X,Y) requiers lobo(X), location(Y).
+    ono(X,Y) requiers oveja(X), location(Y).
+    onr(X,Y) requiers repollo(X), location(Y).
+
+    %onl donde esta el lobo
+    %ono donde esta la oveja
+    %onr donde esta el repollo
+
+    %here(B) requiers location(B).
+
+    moveo(X,Y) requiers oveja(X), location(Y).
+    movel(X,Y) requiers lobo(X), location(Y).
+    mover(X,Y) requiers repollo(X), location(Y).
+
+always:
+    executable moveo(X,Y) if ono(A,B), Y<>B.
+    inertial ono(X,Y).
+    caused ono(X,Y) after moveo(X,Y).
+    caused -ono(X,Y) after moveo(X,L), ono(X,Y), L<>X.
