@@ -16,3 +16,6 @@ a) - Archivos del nuevo programa de los cubos
 b) - Conjunto de programas que manejen mas cubos
      - Captura de pantalla que muestre la ejecucion del programa con 
        mas cubos 
+       
+Ejecutar
+./dlv.bin 1reglasAux.dl 2fluentes.plan 3confini.plan -FP

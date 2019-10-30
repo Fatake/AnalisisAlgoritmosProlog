@@ -1,0 +1,23 @@
+cubo(a). 
+cubo(b). 
+cubo(c).
+cubo(d). 
+cubo(e). 
+cubo(f). 
+cubo(g). 
+cubo(h).
+
+
+libre(a). 
+libre(b). 
+libre(c).
+libre(d). 
+libre(e). 
+libre(f). 
+libre(g). 
+libre(h).
+
+brazoVacio(bra) :- true. true.
+
+lugardisponible(mesa) :- true. true.
+lugardisponible(B) :- cubo(B).

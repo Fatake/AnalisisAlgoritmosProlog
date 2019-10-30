@@ -1,0 +1,8 @@
+cubo(a). cubo(b). cubo(c).
+
+
+lugardisponible(mesa) :- true. true.
+
+lugardisponible(B) :- cubo(B).
+
+

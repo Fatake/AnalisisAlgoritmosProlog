@@ -1,5 +1,7 @@
-fluents: alive, loaded.
-actions: load, shoot.
+fluents: 
+    alive, loaded.
+actions: 
+    load, shoot.
 always:
     executable shoot if loaded.
     executable load if not loaded.

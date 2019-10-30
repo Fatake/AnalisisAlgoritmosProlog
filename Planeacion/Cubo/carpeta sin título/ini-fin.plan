@@ -1,0 +1,11 @@
+initially:
+    sobre(a,mesa). 
+    sobre(b,mesa). 
+    sobre(c,mesa). 
+    -brazovacio. 
+    tomado(b).
+
+
+goal: 
+    sobre(a,b),sobre(b,c),sobre(c,mesa),brazovacio?(5)
+   
