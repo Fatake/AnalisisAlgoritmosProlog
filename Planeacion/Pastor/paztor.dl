@@ -1,0 +1,8 @@
+location(X) :- pos(X).
+
+oveja(a).
+lobo(b).
+repollo(c).
+
+pos(1).
+pos(2).

@@ -1,0 +1,33 @@
+fluents: 
+onl(X,Y) requires lobo(X), location(Y).
+ono(X,Y) requires oveja(X), location(Y).
+onr(X,Y) requires repollo(X), location(Y).
+
+%here(B) requires location(B).
+
+actions: 
+moveo(X,Y) requires oveja(X), location(Y).
+movel(X,Y) requires lobo(X), location(Y).
+mover(X,Y) requires repollo(X), location(Y).
+
+always:  
+
+executable moveo(X,Y) if ono(A,B), Y<>B.
+inertial ono(X,Y).
+caused ono(X,Y) after moveo(X,Y).
+caused -ono(B,L1) after moveo(B,L), ono(B,L1), L <> L1.
+
+executable movel(X,Y) if onl(A,B),Y<>B,ono(C,D),onr(E,F),D<>F.
+inertial onl(X,Y).
+caused onl(X,Y) after movel(X,Y).
+caused -onl(B,L1) after movel(B,L), onl(B,L1), L <> L1.
+
+executable mover(X,Y) if onr(A,B),Y<>B,ono(C,D),onl(E,F),D<>F.
+inertial onr(X,Y).
+caused onr(X,Y) after mover(X,Y).
+caused -onr(B,L1) after mover(B,L),onr(B,L1),L <> L1.
+
+noConcurrency.
+
+initially: ono(a,2). onl(b,2). onr(c,2).
+goal: onl(b,1), ono(a,1), onr(c,1) ? (5)
