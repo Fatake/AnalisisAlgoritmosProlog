@@ -1,18 +1,31 @@
-fluents:
+fluents: 
     sobre(B,L) requires cubo(B), lugardisponible(L).
-    brazo(B,L) requieres brazoVacio(B), lugardisponible(L).
     ocupado(B) requires lugardisponible(B).
+    tomado(B) requires cubo(B).
+    soltado(B) requires cubo(B). 
+    brazoVacio.
 
 actions: 
-    mover(B,L) requires cubo(B), lugardisponible(L).
-    coger(B) requieres cubo(B), -ocupado(B).
-    poner(B,L) requieres 
+    mover(B,L) requires cubo(B), lugardisponible(L), B <> L.
+    coger(B) requires cubo(B), not ocupado(B), brazoVacio.
+    soltar(B) requires cubo(B), not ocupado(B).
 
 always:  
-    executable mover(B,L) if not ocupado(B), not ocupado(L), B <> L.
+    executable mover(B,L) if tomado(B), not ocupado(B), not ocupado(L), -brazoVacio, B <> L.
     inertial sobre(B,L).
-    caused ocupado(B) if sobre(B1,B), cubo(B).
-    caused sobre(B,L) after mover(B,L).
+    caused ocupado(B) after sobre(B1,B), cubo(B1).
+    caused -brazoVacio after mover(B,L).
+    caused tomado(B) after coger(B).
+    caused -tomado(B) after mover(B,L).
+    caused sobre(B,L) after mover(B,L), B <> L.
     caused -sobre(B,L1) after mover(B,L), sobre(B,L1), L <> L1.
+
+    executable soltar(B) if -tomado(B), -brazoVacio, not ocupado(B).
+    caused -tomado(B) after soltar(B). 
+    caused brazoVacio after soltar(B).	
+
+    executable coger(B) if  brazoVacio,  not ocupado(B),  not tomado(B).
+    caused tomado(B) after coger(B).
+    caused -brazoVacio after coger(B).
 
 noConcurrency.

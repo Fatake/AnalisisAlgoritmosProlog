@@ -1,0 +1,22 @@
+initially: 
+    sobre(a,mesa). 
+    sobre(b,mesa). 
+    sobre(c,mesa). 
+    sobre(d,mesa).
+    sobre(e,mesa).
+    sobre(f,mesa).
+    sobre(g,mesa).
+    sobre(h,mesa).
+    -brazoVacio. 
+    tomado(b).
+
+goal: 
+    sobre(a,b), 
+    sobre(b,c), 
+    sobre(c,mesa),
+    sobre(h,g),
+    sobre(g,f),
+    sobre(f,mesa),
+    sobre(d,e),
+    sobre(e,mesa),
+    brazoVacio ? (15)

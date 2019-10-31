@@ -18,4 +18,4 @@ b) - Conjunto de programas que manejen mas cubos
        mas cubos 
        
 Ejecutar
-./dlv.bin 1reglasAux.dl 2fluentes.plan 3confini.plan -FP
+./dlv.bin 1reglasAux.dl 2fluentes.plan 3confIniFin.plan -FP
