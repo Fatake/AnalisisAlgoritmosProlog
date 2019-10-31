@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#define M 4
+#define N 1
 
 int Ackerman(int m, int n){
 	if (m == 0)
@@ -12,13 +13,7 @@ int Ackerman(int m, int n){
 }
 
 int main(int argc, char **argv){
-	int m, n;
-	printf("Por favor ingresa el primer valor: \n->");
-	scanf("%d",&m);
-
-	printf("Por favor ingrese el segundo valor: \n->");
-	scanf("%d",&n);
-
-	printf("El valor Ackerman es: %d\n", Ackerman(m,n));
+	printf("Ackerman\n");
+	printf("El valor Ackerman (%d,%d) es = %d\n",M, N, Ackerman(M,N));
 	return 0;
 }

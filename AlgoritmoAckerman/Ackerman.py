@@ -1,19 +1,16 @@
-#Fatake
+def ackermann(m,n):
+     if m == 0:
+          return (n + 1)
+     elif n == 0:
+          return ackermann(m - 1, 1)
+     else:
+          return ackermann(m - 1, ackermann(m, n - 1)) 
+          
+x = int(input("Valor de m \n->"))
+print (x)
 
-def Ackerman( m, n ):
-	if (m == 0):
-		return n+1
+y = int(input("Valor de N \n->"))
+print (y)
 
-	if(n == 0):
-		return Ackerman(m-1,1)
-
-	return Ackerman(m-1, Ackerman(m,n-1))
-
-
-
-m = int(input("Por favor ingresa el primer valor: "))
-
-n = int(input("Por favor ingrese el segundo valor: "))
-
-print("El valor Ackerman es: " + str(Ackerman(m,n)))
-
+print ("\nCalculando Ackerman"+str(x)+","+str(y))
+print (ackermann(x, y)) 
