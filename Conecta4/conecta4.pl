@@ -19,11 +19,10 @@ imuestra(X,N):- muestraLinea(X,N,X2),
                 imuestra(X2,Ns).
 
 % muestraLinea(X,N,X2) escribe N y muestra la primera línea del tablero X (primer elemento de cada columna)
-% X2 es X sin la línea de mostrar.
 muestraLinea(X,N,X2):- write(N), write(' '),
                    imuestraLinea(X,X2), nl.
 
-%imuestraLinea(X,X2) writes first element of every column. X2 is X without the muestran line.
+%imuestraLinea(X,X2) Escribe el primer elemento de cada columna
 imuestraLinea([],_).
 imuestraLinea([[X|X2]|XS],[X2|XS2]):- write(X), write(' '),
                                   imuestraLinea(XS,XS2).
@@ -43,7 +42,7 @@ sigTiro('X',X):- wins('O',X), write('Perdiste u.u').
 sigTiro('O',X):- wins('X',X), write('Ganaste n.n').
 sigTiro(_,X)  :- full(X),     write('Empate -.-').
 
-sigTiro('X',X):- repeat, %repeats in case a column is full
+sigTiro('X',X):- repeat, %repite en caso de que la columna sea NULL
                   readColumn(C),
                   play('X',C,X,X2), !,
                   muestra(X2),
@@ -53,7 +52,7 @@ sigTiro('O',X):- machine('O','X',X,X2),
                   muestra(X2),
                   sigTiro('X',X2).
 
-%play(X,P,T,T2) is satisfied if T2 is the board T after player X moves in column P
+%play(X,P,T,T2) si T2 el el tablero T antes de jugar X mueve en la columna P
 play(X,P,board(T),board(T2)):- append(I,[C|F],T),
                                length(I,P), 
                                playColumn(X,C,C2),
