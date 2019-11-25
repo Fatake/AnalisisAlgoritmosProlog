@@ -13,8 +13,6 @@ board_color:-
         connect_color(1,1,T,List,D),
         send(D,open_centered).
 
-
-
 connect_color(7,8,_,_,_).
 
 
@@ -181,35 +179,3 @@ connect_color1(Line,Col,T,List,D):-
         send(T,append,B),
         NewCol is Col+1,
         connect_color1(Line,NewCol,T,List,D).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

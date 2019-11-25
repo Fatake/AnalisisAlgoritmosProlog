@@ -30,7 +30,7 @@ connect_color(1,Col,T,List,D):-
         new(B,bitmap('arrow1.bmp')),
         send(T,append,B),
         NewCol is Col+1,
-        send(B,recogniser,click_gesture(left,'',single,message(@prolog,drop,Col))),
+        send(B,recogniser,click_gesture(left,'',single,and(message(D,destroy),message(@prolog,drop,Col)))),
         connect_color(1,NewCol,T,List,D).
 
 
@@ -181,35 +181,3 @@ connect_color1(Line,Col,T,List,D):-
         send(T,append,B),
         NewCol is Col+1,
         connect_color1(Line,NewCol,T,List,D).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
