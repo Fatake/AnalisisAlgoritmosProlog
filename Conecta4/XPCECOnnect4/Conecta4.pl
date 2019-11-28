@@ -212,7 +212,7 @@ putPiece1(List,Col,Line):-
 
 
 
-%whole move
+%movimientos de computadora
 computer_move:-
         board(Board),
         vir_computer_move(Board,1,NewBoards),
@@ -247,17 +247,13 @@ findMiddle(Temp,Col):-
 
 
 
-%gets the current board and makes a list of possible boards
+%obtiene el tablero actual y hace una lista de posibles tableros
 vir_computer_move(_,8,[]).
-
-
 
 vir_computer_move(Board,Col,NewBoards):-
         putPiece1(Board,Col,1),
         NewCol is Col+1,
         vir_computer_move(Board,NewCol,NewBoards).
-
-
 
 vir_computer_move(Board,Col,[(Col,[soldier(Line,Col,red)|Board])|NewBoards]):-
         putPiece1(Board,Col,Line),
@@ -278,18 +274,7 @@ isFull(Board,Col):-
 
 
 
-
-
-
 computer_rate([],[]).
-%startlame
-%board limit pairs
-%triples he lets you
-%board_color2 if tie
-%pairs are just as good as piece hole piece
-%sure win with 2 close traps
-%send, end
-
 computer_rate([(Col,Board)|_],[place(Col,Win1)]):-
         win1(Board,Win1),
         Win1>0.
@@ -297,7 +282,7 @@ computer_rate([(Col,Board)|_],[place(Col,Win1)]):-
 computer_rate([(Col,Board)|TailBoards],[place(Col,Value)|Rated]):-
         pairs(Board,Pairs),
         triples(Board,Triples),
-%%%%%   win1(Board,Win1),
+%       win1(Board,Win1),
         oppairs(Board,OPPairs),
         optriples(Board,OPTriples),
 %       opcanwin(Board,OPCanWin),
@@ -413,8 +398,6 @@ somePairsDiag(X,Board,EndValue):-
         append(List,List1,List2),
         sumlist(List2,EndValue).
 
-
-%down right
 pairsDiagonal(X,Board,Value):-
         member(soldier(X,Y,red),Board),
         Y2 is Y+1,
@@ -475,7 +458,6 @@ pairsDiagonal(X,Board,Value):-
 
 pairsDiagonal(_,_,0).
 
-%up right
 pairsDiagonal1(X,Board,Value):-
         member(soldier(X,Y,red),Board),
         Y2 is Y+1,
@@ -538,15 +520,12 @@ triples(Board,Value):-
         allTriplesDiag(2,Board,Value3),
         Value is Value1+Value2+Value3.
 
-
-
 allTriplesVer(8,_,0).
 allTriplesVer(Col,Board,Value):-
         triplesVertical(Col,Board,ValueCol),
         NewCol is Col +1,
         allTriplesVer(NewCol,Board,ValueRest),
         Value is ValueCol+ValueRest.
-
 
 triplesVertical(Y,Board,Value):-
         member(soldier(X,Y,red),Board),
@@ -633,8 +612,6 @@ someTriplesDiag(X,Board,EndValue):-
         append(List,List1,List2),
         sumlist(List2,EndValue).
 
-
-%down right
 triplesDiagonal(X,Board,Value):-
         member(soldier(X,Y,red),Board),
         Y2 is Y+1,
@@ -701,7 +678,7 @@ triplesDiagonal(X,Board,Value):-
 
 triplesDiagonal(_,_,0).
 
-%up right
+
 triplesDiagonal1(X,Board,Value):-
         member(soldier(X,Y,red),Board),
         Y2 is Y+1,
@@ -916,8 +893,6 @@ someopPairsDiag(X,Board,EndValue):-
         findall(Value,oppairsDiagonal(X,Board,Value),List),
         sumlist(List,EndValue).
 
-
-%down right
 oppairsDiagonal(X,Board,Value):-
         member(soldier(X,Y,yellow),Board),
         Y2 is Y+1,
@@ -976,7 +951,6 @@ oppairsDiagonal(X,Board,Value):-
 
 oppairsDiagonal(_,_,0).
 
-%up right
 oppairsDiagonal1(X,Board,Value):-
         member(soldier(X,Y,yellow),Board),
         Y2 is Y+1,
@@ -1135,8 +1109,6 @@ someopTriplesDiag(X,Board,EndValue):-
         append(List,List1,List2),
         sumlist(List2,EndValue).
 
-
-%down right
 optriplesDiagonal(X,Board,Value):-
         member(soldier(X,Y,yellow),Board),
         Y2 is Y+1,
@@ -1203,7 +1175,6 @@ optriplesDiagonal(X,Board,Value):-
 
 optriplesDiagonal(_,_,0).
 
-%up right
 optriplesDiagonal1(X,Board,Value):-
         member(soldier(X,Y,yellow),Board),
         Y2 is Y+1,
@@ -1336,8 +1307,6 @@ max(ListValue,place(Col,Value)):-
     not((member(place(_,V1),ListValue),V1>Value)).
 
 
-
-
 putPieceNew(Col):-
         board(List),
         turn(Turn),
@@ -1353,25 +1322,4 @@ putPieceNew(Col):-
         Line1 is Line-1,
         retract(board(_)),
         assert(board([soldier(Line1,Col,Turn)|List])).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        

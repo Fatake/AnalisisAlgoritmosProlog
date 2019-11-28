@@ -58,10 +58,10 @@ play(X,P,board(T),board(T2)):- append(I,[C|F],T),
                                playColumn(X,C,C2),
                                append(I,[C2|F],T2).
 
-%playColumn(X,C,C2) is satisfied if column C2 is column C after player X plays there
-playColumn(X,['-'],[X]):- !. % last spot in column
+%playColumn(X,C,C2) lacolumna C2 es la columna C después de que el jugador X juega allí
+playColumn(X,['-'],[X]):- !. % ultimo jugar, entonce sale
 playColumn(X,['-',A|AS],[X,A|AS]):- A \== ('-'), !. % jugar por encima de la pieza de alguien
-playColumn(X,['-'|AS],['-'|AS2]):- playColumn(X,AS,AS2). % descend column
+playColumn(X,['-'|AS],['-'|AS2]):- playColumn(X,AS,AS2). % Descendente
 
 %<-------------------------------------------Ganar------------------------------------------------------------>%
 
@@ -70,31 +70,31 @@ wins(X,board(T)):- append(_, [C|_], T), % Checa si hay una columna
                    append(_,[X,X,X,X|_],C). % ...which has 4 connected pieces of player X
 
 % comprobar si hay una fila en T con 4 piezas conectadas de jugador X
-wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T), % check if 4 connected columns exists in board...
-                   append(I1,[X|_],C1), %...such that all of them contain a piece of player X...
+wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T), % compruebe si existen 4 columnas conectadas en el tablero con fichas
+                   append(I1,[X|_],C1),
                    append(I2,[X|_],C2),
                    append(I3,[X|_],C3),
                    append(I4,[X|_],C4),
-                   length(I1,M), length(I2,M), length(I3,M), length(I4,M). %...and every piece is in the same height
+                   length(I1,M), length(I2,M), length(I3,M), length(I4,M). %Cada ficha esté en la misma altura
 
 % comprueba si hay una diagonal (tipo \) en T con 4 piezas conectadas de jugador X
-wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T), % check if 4 connected columns exists in board...
-                   append(I1,[X|_],C1), %...such that all of them contain a piece of player X...
+wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T),
+                   append(I1,[X|_],C1),
                    append(I2,[X|_],C2),
                    append(I3,[X|_],C3),
                    append(I4,[X|_],C4),
                    length(I1,M1), length(I2,M2), length(I3,M3), length(I4,M4),
-                   M2 is M1+1, M3 is M2+1, M4 is M3+1. %...and every piece is within the same diagonal \
-%check if there's a diagonal (type /) in T with 4 connected pieces of player X
-wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T), % check if 4 connected columns exists in board...
-                   append(I1,[X|_],C1), %...such that all of them contain a piece of player X...
+                   M2 is M1+1, M3 is M2+1, M4 is M3+1. %
+%comprueba si hay una diagonal (tipo /¿diagonal) en T con 4 piezas conectadas de jugador X
+wins(X,board(T)):- append(_,[C1,C2,C3,C4|_],T),
+                   append(I1,[X|_],C1),
                    append(I2,[X|_],C2),
                    append(I3,[X|_],C3),
                    append(I4,[X|_],C4),
                    length(I1,M1), length(I2,M2), length(I3,M3), length(I4,M4),
-                   M2 is M1-1, M3 is M2-1, M4 is M3-1. %...and every piece is within the same diagonal /
+                   M2 is M1-1, M3 is M2-1, M4 is M3-1.
                                                 
-%full(T) is satisfied if there isn't any free spot ('-')
+%full()comprueba si no hay ningún espacio libre ('-')
 full(board(T)):- \+ (append(_,[C|_],T),
                  append(_,['-'|_],C)).
 
@@ -106,11 +106,10 @@ readColumn(C):- nl, write('Tiro(ColFil): '),
                 associateColumn(L,C),
                 col(C), !.
 
-%associateColumn(L,C) column C is the column associated with char L
-associateColumn(L,C):- atom_codes(L,[La|_]),
+%associateColumn() la columna C es la columna asociada con char L
+associateColumn(L,C):- atom_codes(L,[La|_]), %funcon atom_code, asocia un string con algo atomico en este caso la lista de columnas
                        C is La - 65.
 
-%associateChar(L, C) char L is the char associated with column C
 associateChar(L, C):- Ln is 65+C,
                       atom_codes(L,[Ln]).
 
@@ -124,48 +123,49 @@ col(5).
 col(6).
 
 %<--------------------------------------------Computadora------------------------------------------------------>%
-%machine(R,O,T,T2) Let R be the machine piece, O the opponent's piece and T the board game. Then T2 is board T after the machine movement
-% win if possible
+% máquina (R, O, T, T2): Sea R la pieza de la máquina, O la pieza del oponente y T el juego de mesa.
+% Donde T2 es el tablero T después del movimiento de la máquina (busca mejor tiro para ganar)
 machine(R,_,T,T2):- iMachine(R,T,C,T2),
                     nl, write('computadora: '),
                     associateChar(L,C),
                     write(L),
                     nl,!.
-% otherwise, if machine can't win within a move, play a move that doesn't allow opponent O to win and that would allow us to obtain a connected 4
-machine(R,O,T,T2):- findall((Col,TA), (col(Col), play(R,Col,T,TA),\+ iMachine(O,TA,_,_), goodMove(R,Col,T)), [(C,T2)|_]),
+% Si la máquina no puede ganar dentro de un movimiento
+% esta juegará un movimiento que no permita que el oponente gane y que nos permita obtener un 4 conectado
+machine(R,O,T,T2):- findall((Col,TA), (col(Col), play(R,Col,T,TA),\+ iMachine(O,TA,_,_), goodMove(R,Col,T)), [(C,T2)|_]), %Encuentra todos
                     nl, write('computadora: '),
                     associateChar(L,C),
                     write(L),
                     nl,!.
-% otherwise play a move that doesn't allow opponent O to win
+% Juega un movimiento que no permita qu eel oponente gane
 machine(R,O,T,T2):- findall((Col,TA), (col(Col), play(R,Col,T,TA),\+ iMachine(O,TA,_,_)), [(C,T2)|_]),
                     nl, write('computadora: '),
                     associateChar(L,C),
                     write(L), nl,
                     write('-'),!.
-% otherwise play a move intercepting one of the future winning options of opponent O
+% Juega un movimiento que evita que el oponente gane
 machine(R,O,T,T2):- iMachine(O,T,C,_),
                     play(R,C,T,T2),
                     nl, write('computadora: '),
                     associateChar(L,C),
                     write(L), nl.
-% otherwise play wherever
+% Si no hay riesgo de perder, juega donde sea
 machine(R,_,T,T2):- col(C),
                     play(R,C,T,T2),
                     nl, write('computadora: '),
                     associateChar(L,C),
                     write(L), nl.
                                   
-%iMachine(R,T,C,T2) is satisfied if player R can play in column C of board T and obtain a winning board T2
-iMachine(R,T,C,T2):- findall((Col,TA), (col(Col), play(R,Col,T,TA),wins(R,TA)),[(C,T2)|_]).
+%iMachine(R,T,C,T2) si el jugador R puede jugar en la columna C del tablero T y obtener un tablero ganador T2
+iMachine(R,T,C,T2):- findall((Col,TA), (col(Col), play(R,Col,T,TA),wins(R,TA)),[(C,T2)|_]). %Busca por las ramas un juego o si hay victoria
 
-%We consider that a good move is one allowing us to win in a column. Further improvements: rows and diagonals.
+%Se considera que una buena jugada es aquella que nos permite ganar en una columna, fila o diagonal.
 goodMove(R,Col,board(T)):- append(I,[C|_],T),
                            length(I,Col),
                            maxConnected(R,C,MaxConn),
                            MaxConn >= 4.                                                
 
-% maxConnected(R,C,MaxConn) MaxConn is the maximum number of connected pieces that player R has/could have in column C
+% maxConnected(R,C,MaxConn) MaxConn es el número máximo de piezas conectadas que el jugador R tiene o podría tener en la columna C
 maxConnected(_,[],0).
 maxConnected(R,[X|_],0):- X\=R.
 maxConnected(R,['-'|X],N):- maxConnected(R,X,Ns),
