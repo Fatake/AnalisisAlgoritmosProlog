@@ -1,4 +1,5 @@
 :-consult('Graphix.pl').
+%Tables o chess import
 
 %Inicia el sistema
 start:-
